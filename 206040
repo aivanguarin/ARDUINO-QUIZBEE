@@ -1,0 +1,629 @@
+#include <Key.h>
+#include <Keypad.h>
+#include <LiquidCrystal.h>
+//Initialise the LCD with the arduino. LiquidCrystal(rs, enable, d4, d5, d6, d7)
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+void addition();
+void subtraction();
+void multiplication();
+void multiplication1();
+void division();
+void result();
+
+const byte numRows= 4;
+
+const byte numCols= 4;
+
+char keymap[numRows][numCols]= { {'1', '2', '3', 'A'},
+
+{'4', '5', '6', 'B'},
+
+{'7', '8', '9', 'C'},
+
+{'*', '0', '#', 'D'} };
+
+byte rowPins[numRows] = {A0,A1,A2,A3}; //Rows 0 to 3
+
+byte colPins[numCols]= {A4,A5,A6,A7}; //Columns 0 to 3
+
+Keypad myKeypad= Keypad(makeKeymap(keymap), rowPins, colPins, numRows, numCols);
+int count=0, sum=0,ans, m, num1,num2,diff=0;
+char keypressed;
+
+void setup() {
+
+
+
+pinMode(A8,OUTPUT);
+pinMode(A9,OUTPUT);
+pinMode(A10,OUTPUT);
+pinMode(A11,OUTPUT);
+pinMode(A12,OUTPUT);
+Serial.begin(9600);
+
+}
+
+//If key is pressed, this key is stored in 'keypressed' variable //If key is not equal to 'NO_KEY', then this key is printed out //if count=17, then count is reset back to 0 (this means no key is pressed during the whole keypad scan process
+
+void loop() {
+  lcd.begin(16, 2);
+  digitalWrite(A8, LOW);
+  digitalWrite(A9, LOW);
+  digitalWrite(A10, LOW);
+  digitalWrite(A11, LOW);
+  digitalWrite(A12, LOW);
+lcd.setCursor(1,0);
+lcd.print("   QUIZ");
+lcd.setCursor(9,0);
+lcd.print("BEE");
+delay(5000);
+lcd.clear();
+addition();
+delay(5000);
+subtraction();
+delay(5000);
+multiplication();
+delay(5000);
+division();
+delay(5000);
+multiplication1();
+delay(5000);
+result();
+delay(10000);
+}
+
+void addition()
+{
+
+sum=0;
+m=10;
+num1 = random(20);
+num2 = random(20);
+ans = num1+num2;
+lcd.setCursor(0,0);
+lcd.print(num1);
+lcd.print(" + ");
+lcd.print(num2);
+lcd.print(" ?");
+lcd.setCursor(0,1);
+lcd.print("ANSWER:");
+for(; ;)
+{
+  lcd.setCursor(m,1);
+  keypressed= myKeypad.getKey();
+  if(keypressed=='0')
+    {
+      
+      lcd.print(keypressed);
+      sum=(sum*10)+0;
+      m++;
+    }
+   if(keypressed=='1')
+    {
+      lcd.print(keypressed);
+      sum=(sum*10)+1;
+        m++;
+    }
+   if(keypressed=='2')
+     {
+ lcd.print(keypressed);
+      sum=(sum*10)+2;
+        m++;
+     }
+   if(keypressed=='3')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+3;
+        m++;
+     }
+    if(keypressed=='4')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+4;
+        m++;
+     }
+    if(keypressed=='5')
+     {
+   lcd.print(keypressed);
+      sum=(sum*10)+5;
+
+        m++;
+     }
+     if(keypressed=='6')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+6;
+        m++;
+     }
+    if(keypressed=='7')
+     {
+     lcd.print(keypressed);
+      sum=(sum*10)+7;
+        m++;
+     }
+    if(keypressed=='8')
+     {
+     lcd.print(keypressed);
+      sum=(sum*10)+8;
+        m++;
+     }
+     if(keypressed=='9')
+     {
+     lcd.print(keypressed);
+      sum=(sum*10)+9;
+        m++;
+     }
+ if ((keypressed == 'A')||(keypressed=='B')||(keypressed=='C')||(keypressed=='D')||(keypressed=='*')||(keypressed=='#'))
+   {
+    break;
+   }
+
+}
+lcd.clear();
+if(sum==ans)
+  {
+  lcd.print("CORRECT!");
+    digitalWrite(A8, HIGH);
+    count++;
+  }
+else
+  {
+    lcd.print("WRONG");
+   
+  }
+
+}
+
+void subtraction()
+{
+diff=0;
+m=10;
+num1 = random(20,40);
+num2 = random(20);
+ans = num1-num2;
+lcd.setCursor(0,0);
+lcd.print(num1);
+lcd.print(" - ");
+lcd.print(num2);
+lcd.print(" ?");
+lcd.setCursor(0,1);
+lcd.print("ANSWER:");
+for(; ;)
+{
+  lcd.setCursor(m,1);
+  keypressed= myKeypad.getKey();
+  if(keypressed=='0')
+    {
+      lcd.print(keypressed);
+      diff=(diff*10)+0;
+      m++;
+    }
+   if(keypressed=='1')
+    {
+      lcd.print(keypressed);
+      diff=(diff*10)+1;
+      m++;
+    }
+   if(keypressed=='2')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+2;
+      m++;
+     }
+   if(keypressed=='3')
+     {
+      
+      lcd.print(keypressed);
+     diff=(diff*10)+3;
+     m++;
+     }
+    if(keypressed=='4')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+4;
+      m++;
+     }
+    if(keypressed=='5')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+5;
+      m++;
+     }
+     if(keypressed=='6')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+6;
+      m++;
+     }
+    if(keypressed=='7')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+7;
+      m++;
+      
+     }
+    if(keypressed=='8')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+8;
+      m++;
+     }
+     if(keypressed=='9')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+9;
+      m++;
+     }
+ if ((keypressed == 'A')||(keypressed=='B')||(keypressed=='C')||(keypressed=='D')||(keypressed=='*')||(keypressed=='#'))
+   {
+    break;
+   }
+
+}
+lcd.clear();
+if(diff==ans)
+  {
+    lcd.print("CORRECT!");
+    digitalWrite(A9, HIGH);
+    count++;
+  }
+else
+  {
+    lcd.print("WRONG");
+    
+  }
+
+}
+
+
+void multiplication()
+{
+sum=0;
+m=10;
+num1 = random(20);
+num2 = random(10);
+ans = num1*num2;
+lcd.setCursor(0,0);
+lcd.print(num1);
+lcd.print(" x ");
+lcd.print(num2);
+lcd.print(" ? ");
+lcd.setCursor(0,1);
+lcd.print("ANSWER:");
+for(; ;)
+{
+  lcd.setCursor(m,1);
+  keypressed= myKeypad.getKey();
+  if(keypressed=='0')
+    {
+      
+      lcd.print(keypressed);
+      sum=(sum*10)+0;
+      m++;
+    }
+   if(keypressed=='1')
+    {
+      lcd.print(keypressed);
+      sum=(sum*10)+1;
+      m++;
+    }
+   if(keypressed=='2')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+2;
+      m++;
+     }
+   if(keypressed=='3')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+3;
+       m++;
+     }
+    if(keypressed=='4')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+4;
+       m++;
+     }
+    if(keypressed=='5')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+5;
+       m++;
+     }
+     if(keypressed=='6')
+     {
+     lcd.print(keypressed);
+      sum=(sum*10)+6;
+       m++;
+     }
+    if(keypressed=='7')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+7;
+       m++;
+     }
+    if(keypressed=='8')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+8;
+       m++;
+     }
+     if(keypressed=='9')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+9;
+       m++;
+     }
+ if ((keypressed == 'A')||(keypressed=='B')||(keypressed=='C')||(keypressed=='D')||(keypressed=='*')||(keypressed=='#'))
+   {
+    break;
+   }
+
+}
+lcd.clear();
+if(sum==ans)
+  {
+    lcd.print("CORRECT!");
+    digitalWrite(A10, HIGH);
+    count++;
+  }
+else
+  {
+    lcd.print("WRONG");
+  }  
+}
+
+
+void multiplication1()
+{
+sum=0;
+m=10;
+num1 = random(20);
+num2 = random(10);
+ans = num1*num2;
+lcd.setCursor(0,0);
+lcd.print(num1);
+lcd.print(" x ");
+lcd.print(num2);
+lcd.print(" ? ");
+lcd.setCursor(0,1);
+lcd.print("ANSWER:");
+for(; ;)
+{
+  lcd.setCursor(m,1);
+  keypressed= myKeypad.getKey();
+  if(keypressed=='0')
+    {
+      
+      lcd.print(keypressed);
+      sum=(sum*10)+0;
+      m++;
+    }
+   if(keypressed=='1')
+    {
+      lcd.print(keypressed);
+      sum=(sum*10)+1;
+      m++;
+    }
+   if(keypressed=='2')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+2;
+      m++;
+     }
+   if(keypressed=='3')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+3;
+       m++;
+     }
+    if(keypressed=='4')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+4;
+       m++;
+     }
+    if(keypressed=='5')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+5;
+       m++;
+     }
+     if(keypressed=='6')
+     {
+     lcd.print(keypressed);
+      sum=(sum*10)+6;
+       m++;
+     }
+    if(keypressed=='7')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+7;
+       m++;
+     }
+    if(keypressed=='8')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+8;
+       m++;
+     }
+     if(keypressed=='9')
+     {
+      lcd.print(keypressed);
+      sum=(sum*10)+9;
+       m++;
+     }
+ if ((keypressed == 'A')||(keypressed=='B')||(keypressed=='C')||(keypressed=='D')||(keypressed=='*')||(keypressed=='#'))
+   {
+    break;
+   }
+
+}
+lcd.clear();
+if(sum==ans)
+  {
+    lcd.print("CORRECT!");
+    digitalWrite(A12, HIGH);
+    count++;
+  }
+else
+  {
+    lcd.print("WRONG");
+  }  
+}
+
+
+
+void division()
+{
+while(num1%2!=0)
+{
+num1 = random(1,20);
+}
+num2 = random(1,2);
+diff=0;
+m=10;
+ans = num1/num2;
+lcd.setCursor(0,0);
+lcd.print(num1);
+lcd.print(" / ");
+lcd.print(num2);
+lcd.print(" ?");
+lcd.setCursor(0,1);
+lcd.print("ANSWER:");
+for(; ;)
+{
+  lcd.setCursor(m,1);
+  keypressed= myKeypad.getKey();
+  if(keypressed=='0')
+    {
+      lcd.print(keypressed);
+      diff=(diff*10)+0;
+      m++;
+    }
+   if(keypressed=='1')
+    {
+      lcd.print(keypressed);
+      diff=(diff*10)+1;
+       m++;
+    }
+   if(keypressed=='2')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+2;
+       m++;
+     }
+   if(keypressed=='3')
+     {
+      lcd.print(keypressed);
+     diff=(diff*10)+3;
+      m++;
+     }
+    if(keypressed=='4')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+4;
+       m++;
+     }
+    if(keypressed=='5')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+5;
+       m++;
+     }
+     if(keypressed=='6')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+6;
+       m++;
+     }
+    if(keypressed=='7')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+7;
+       m++;
+     }
+    if(keypressed=='8')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+8;
+       m++;
+     }
+     if(keypressed=='9')
+     {
+      lcd.print(keypressed);
+      diff=(diff*10)+9;
+       m++;
+     }
+ if ((keypressed == 'A')||(keypressed=='B')||(keypressed=='C')||(keypressed=='D')||(keypressed=='*')||(keypressed=='#'))
+   {
+    break;
+   }
+
+}
+lcd.clear();
+if(diff==ans)
+  {
+    lcd.print("CORRECT!");
+    digitalWrite(A11, HIGH);
+    count++;
+  }
+else
+  {
+    lcd.print("WRONG");
+  }
+
+}
+
+
+void result()
+{
+  lcd.clear();
+  lcd.setCursor(0,0);
+  lcd.print("RESULT: ");
+  lcd.setCursor(0,1);
+  lcd.print(count);
+  lcd.print(" OUT OF 5");
+  delay(5000);
+  lcd.clear();
+  lcd.setCursor(0,0);
+  
+  if(count>=4)
+    {
+      lcd.print("CONGRATULATIONS!");
+      digitalWrite(A8, LOW);
+  digitalWrite(A9, LOW);
+  digitalWrite(A10, LOW);
+  digitalWrite(A11, LOW);
+  digitalWrite(A12, LOW);
+      digitalWrite(A8,HIGH);
+      delay(500);
+      digitalWrite(A9,HIGH);
+      delay(500);
+      digitalWrite(A10,HIGH);
+      delay(500);
+      digitalWrite(A11,HIGH);
+      delay(500);
+      digitalWrite(A12,HIGH);
+      delay(500);
+      digitalWrite(A12,LOW);
+      delay(500);
+      digitalWrite(A11,LOW);
+      delay(500);
+      digitalWrite(A10,LOW);
+      delay(500);
+      digitalWrite(A9,LOW);
+      delay(500);
+      digitalWrite(A8,LOW);
+      delay(500);
+     
+    }
+  else
+    {
+      lcd.print("MORE PRACTICE!");
+    }
+   count=0;
+
+}
